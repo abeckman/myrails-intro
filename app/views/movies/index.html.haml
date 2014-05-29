@@ -12,7 +12,7 @@
       - if @header_to_hilite == "release_date"
         %th.hilite= link_to "Release Date", :sort => "release_date", :class => "release_date_header"
       - else
-        %th= link_to "Release Date", :sort => "release_date", :class = "release_date_header"
+        %th= link_to "Release Date", :sort => "release_date", :class => "release_date_header"
       %th More Info
   %tbody
     - @movies.each do |movie|
