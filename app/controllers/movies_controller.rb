@@ -3,15 +3,26 @@ class MoviesController < ApplicationController
   @@first_time = true
   def index
     @all_ratings = Movie.get_ratings
-    if @@first_time || !params[:sort].nil?
+    if @@first_time
+#    if @current_ratings.nil?
+      @current_ratings = Hash[@all_ratings.map {|rating| [rating, "1"]}]
+    elsif !params[:sort].nil?
+    # catch the case where sort has been set
       @current_ratings = Hash[@all_ratings.map {|rating| [rating, "1"]}]
     else
-      params[:ratings].nil? ? @current_ratings = {:nada => "nothing"} : 
+      params[:ratings].nil? ? @current_ratings = 
+        Hash[@all_ratings.map {|rating| [rating, "1"]}] :
         @current_ratings = params[:ratings]
     end
     @@first_time = false
     @movies = Movie.order(params[:sort]).where(rating: @current_ratings.keys)
     @header_to_hilite = params[:sort]
+#    if !params[:sort].nil? 
+#    if !session[:sort].nil? 
+#    then redirect is set to true. 
+#    order = session[:sort] 
+#    session.delete(:sort) 
+#    order
   end
 
   def show
