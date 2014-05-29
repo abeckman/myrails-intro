@@ -1,15 +1,23 @@
 class MoviesController < ApplicationController
 
+  @@first_time = true
+  def index
+    @all_ratings = Movie.get_ratings
+    if @@first_time 
+      @current_ratings = Hash[@all_ratings.map {|rating| [rating, "1"]}]
+    else
+      params[:ratings].nil? ? @current_ratings = {:nada => "nothing"} : 
+        @current_ratings = params[:ratings]
+    end
+    @@first_time = false
+    @movies = Movie.order(params[:sort])
+    @header_to_hilite = params[:sort]
+  end
+
   def show
     id = params[:id] # retrieve movie ID from URI route
     @movie = Movie.find(id) # look up movie by unique ID
     # will render app/views/movies/show.<extension> by default
-  end
-
-  def index
-    @movies = Movie.order(params[:sort])
-    @header_to_hilite = params[:sort]
-    @all_ratings = Movie.get_ratings
   end
 
   def new
