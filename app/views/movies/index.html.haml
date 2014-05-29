@@ -22,9 +22,11 @@
           :id => "title_header"
       %th Rating
       - if @header_to_hilite == "release_date"
-        %th.hilite= link_to "Release Date", {:sort => "release_date"}, :id => "release_date_header"
+        %th.hilite= link_to "Release Date", {:sort => "release_date"}, 
+          :id => "release_date_header"
       - else
-        %th= link_to "Release Date", {:sort => "release_date"}, :id => "release_date_header"
+        %th= link_to "Release Date", {:sort => "release_date"}, 
+          :id => "release_date_header"
       %th More Info
   %tbody
     - @movies.each do |movie|

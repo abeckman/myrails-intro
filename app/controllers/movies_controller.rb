@@ -3,7 +3,7 @@ class MoviesController < ApplicationController
   @@first_time = true
   def index
     @all_ratings = Movie.get_ratings
-    if @@first_time 
+    if @@first_time || !params[:sort].nil?
       @current_ratings = Hash[@all_ratings.map {|rating| [rating, "1"]}]
     else
       params[:ratings].nil? ? @current_ratings = {:nada => "nothing"} : 
