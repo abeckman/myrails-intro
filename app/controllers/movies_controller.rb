@@ -10,7 +10,7 @@ class MoviesController < ApplicationController
         @current_ratings = params[:ratings]
     end
     @@first_time = false
-    @movies = Movie.order(params[:sort])
+    @movies = Movie.order(params[:sort]).where(rating: @current_ratings.keys)
     @header_to_hilite = params[:sort]
   end
 

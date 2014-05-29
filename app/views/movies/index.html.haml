@@ -8,7 +8,7 @@
   - @all_ratings.each do |rating|
     = rating
     = check_box_tag "ratings[#{rating}]", value = "1", 
-      @current_ratings[rating.to_sym], :id => "ratings_#{rating}"
+      @current_ratings["#{rating}"], :id => "ratings_#{rating}"
   = submit_tag 'Refresh', :id => 'ratings_submit'
 
 %table#movies
