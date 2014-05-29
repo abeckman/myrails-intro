@@ -15,11 +15,11 @@
   %thead
     %tr
       - if @header_to_hilite == "title"
-        %th.hilite= link_to "Movie Title", {:sort => "title"}, 
-          :id => "title_header"
+        %th.hilite= link_to "Movie Title", {:sort => "title", 
+          :ratings => @current_ratings}, :id => "title_header"
       - else
-        %th= link_to "Movie Title", {:sort => "title"}, 
-          :id => "title_header"
+        %th= link_to "Movie Title", {:sort => "title", 
+          :ratings => @current_ratings}, :id => "title_header"
       %th Rating
       - if @header_to_hilite == "release_date"
         %th.hilite= link_to "Release Date", {:sort => "release_date"}, 

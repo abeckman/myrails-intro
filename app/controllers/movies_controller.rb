@@ -6,9 +6,9 @@ class MoviesController < ApplicationController
     if @@first_time
 #    if @current_ratings.nil?
       @current_ratings = Hash[@all_ratings.map {|rating| [rating, "1"]}]
-    elsif !params[:sort].nil?
+#    elsif !params[:sort].nil?
     # catch the case where sort has been set
-      @current_ratings = Hash[@all_ratings.map {|rating| [rating, "1"]}]
+#      @current_ratings = Hash[@all_ratings.map {|rating| [rating, "1"]}]
     else
       params[:ratings].nil? ? @current_ratings = 
         Hash[@all_ratings.map {|rating| [rating, "1"]}] :
