@@ -9,6 +9,7 @@ class MoviesController < ApplicationController
   def index
     @movies = Movie.order(params[:sort])
     @header_to_hilite = params[:sort]
+    @all_ratings = Movie.get_ratings
   end
 
   def new
