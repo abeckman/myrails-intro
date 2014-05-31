@@ -7,26 +7,18 @@
   Include:
   - @all_ratings.each do |rating|
     = rating
-    = check_box_tag "ratings[#{rating}]", value = "1", 
+    = check_box_tag "ratings[#{rating}]", value = "1", |
       @current_ratings["#{rating}"], :id => "ratings_#{rating}"
   = submit_tag 'Refresh', :id => 'ratings_submit'
 
 %table#movies
   %thead
     %tr
-      - if @header_to_hilite == "title"
-        %th.hilite= link_to "Movie Title", {:sort => "title", 
-          :ratings => @current_ratings}, :id => "title_header"
-      - else
-        %th= link_to "Movie Title", {:sort => "title", 
-          :ratings => @current_ratings}, :id => "title_header"
+      %th{class: @title_hilite}= link_to "Movie Title", {:sort => "title", |
+        :ratings => @current_ratings}, :id => "title_header"
       %th Rating
-      - if @header_to_hilite == "release_date"
-        %th.hilite= link_to "Release Date", {:sort => "release_date"}, 
-          :id => "release_date_header"
-      - else
-        %th= link_to "Release Date", {:sort => "release_date"}, 
-          :id => "release_date_header"
+      %th{class: @release_date_hilite}= link_to "Release Date", {:sort => "release_date", |
+          :ratings => @current_ratings}, :id => "release_date_header"
       %th More Info
   %tbody
     - @movies.each do |movie|

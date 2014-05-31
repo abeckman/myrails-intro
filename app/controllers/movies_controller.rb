@@ -16,7 +16,13 @@ class MoviesController < ApplicationController
     end
     @@first_time = false
     @movies = Movie.order(params[:sort]).where(rating: @current_ratings.keys)
-    @header_to_hilite = params[:sort]
+    if params[:sort] == "title"
+      @title_hilite = "hilite"
+    elsif params[:sort] == "release_date"
+      @release_date_hilite = "hilite"
+    end
+@header_to_hilite = params[:sort]
+#    @header_to_hilite = params[:sort]
 #    if !params[:sort].nil? 
 #    if !session[:sort].nil? 
 #    then redirect is set to true. 
