@@ -1,24 +1,23 @@
 -#  This file is app/views/movies/index.html.haml
 %h1 All Movies
 
-= @all_ratings.inspect
-= @current_ratings.inspect
+= session[:ratings].inspect
 = form_tag movies_path, :method => :get, :id => 'ratings_form' do
   Include:
   - @all_ratings.each do |rating|
     = rating
     = check_box_tag "ratings[#{rating}]", value = "1", |
-      @current_ratings["#{rating}"], :id => "ratings_#{rating}"
+      session[:ratings]["#{rating}"], :id => "ratings_#{rating}"
   = submit_tag 'Refresh', :id => 'ratings_submit'
 
 %table#movies
   %thead
     %tr
       %th{class: @title_hilite}= link_to "Movie Title", {:sort => "title", |
-        :ratings => @current_ratings}, :id => "title_header"
+        :ratings => session[:ratings]}, :id => "title_header"
       %th Rating
       %th{class: @release_date_hilite}= link_to "Release Date", {:sort => "release_date", |
-          :ratings => @current_ratings}, :id => "release_date_header"
+          :ratings => session[:ratings]}, :id => "release_date_header"
       %th More Info
   %tbody
     - @movies.each do |movie|

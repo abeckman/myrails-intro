@@ -3,26 +3,28 @@ class MoviesController < ApplicationController
   @@first_time = true
   def index
     @all_ratings = Movie.get_ratings
-    if @@first_time
-#    if @current_ratings.nil?
-      @current_ratings = Hash[@all_ratings.map {|rating| [rating, "1"]}]
+    if @@first_time && session[:ratings].nil?
+      session[:ratings] = Hash[@all_ratings.map {|rating| [rating, "1"]}]
 #    elsif !params[:sort].nil?
-    # catch the case where sort has been set
+# catch the case where sort has been set
 #      @current_ratings = Hash[@all_ratings.map {|rating| [rating, "1"]}]
+    elsif params[:ratings].nil?
+      params[:ratings] = session[:ratings]
     else
-      params[:ratings].nil? ? @current_ratings = 
-        Hash[@all_ratings.map {|rating| [rating, "1"]}] :
-        @current_ratings = params[:ratings]
+      session[:ratings] = params[:ratings]
     end
     @@first_time = false
-    @movies = Movie.order(params[:sort]).where(rating: @current_ratings.keys)
+    @movies = Movie.order(params[:sort]).where(rating: session[:ratings].keys)
     if params[:sort] == "title"
       @title_hilite = "hilite"
     elsif params[:sort] == "release_date"
       @release_date_hilite = "hilite"
     end
-@header_to_hilite = params[:sort]
-#    @header_to_hilite = params[:sort]
+#    debugger
+    if params[:ratings] != session[:ratings]
+      flash.keep if !flash[:notice].nil? || !flash[:warning].nil?
+      redirect_to movies_path(:ratings => session[:ratings])
+    end
 #    if !params[:sort].nil? 
 #    if !session[:sort].nil? 
 #    then redirect is set to true. 
